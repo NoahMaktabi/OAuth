@@ -7,6 +7,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
+using System.Net.Http.Headers;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace MVC_Client.Controllers
 {
@@ -19,7 +23,13 @@ namespace MVC_Client.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Test()
         {
             return View();
         }
@@ -33,6 +43,19 @@ namespace MVC_Client.Controllers
         public IActionResult Logout()
         {
             return SignOut("Cookies", "oidc");
+        }
+
+        public async Task<IActionResult> CallApi()
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            //var content = await client.GetStringAsync("https://localhost:6001/identity");
+            var content = await client.GetStringAsync("https://localhost:6001/cars");
+
+            ViewBag.Json = JArray.Parse(content).ToString();
+            return View("Json");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

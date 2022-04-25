@@ -45,6 +45,9 @@ namespace MVC_Client
                     options.SaveTokens = true;
                     options.Scope.Add("profile");
                     options.GetClaimsFromUserInfoEndpoint = true;
+
+                    options.Scope.Add("oauth2");
+                    options.Scope.Add("offline_access");
                 });
         }
 

@@ -40,13 +40,16 @@ namespace OAuth
                     // where to redirect to after login
                     RedirectUris = { "https://localhost:5002/signin-oidc" },
 
+                    AllowOfflineAccess = true,
+
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
 
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "oauth2"
                     }
                 }
             };
