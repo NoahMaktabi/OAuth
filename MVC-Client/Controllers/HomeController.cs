@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using System.Net.Http.Headers;
 using System.Net.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MVC_Client.Controllers
@@ -58,9 +59,9 @@ namespace MVC_Client.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             //var content = await client.GetStringAsync("https://localhost:6001/identity");
             var content = await client.GetStringAsync("https://localhost:6001/cars");
-
+            var cars = JsonConvert.DeserializeObject<List<Car>>(content);
             ViewBag.Json = JArray.Parse(content).ToString();
-            return View("Json");
+            return View(cars);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

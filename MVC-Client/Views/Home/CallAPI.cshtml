@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MVC_Client.Models.Car>
+
+@{
+    ViewData["Title"] = "Cars from API";
+}
+
+<h1>Cars from API</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Make)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
