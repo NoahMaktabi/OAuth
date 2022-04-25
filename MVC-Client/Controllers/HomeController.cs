@@ -34,6 +34,11 @@ namespace MVC_Client.Controllers
             return View();
         }
 
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
         [AllowAnonymous]
         public IActionResult Privacy()
         {
